@@ -20,7 +20,11 @@ async function main() {
   }
   if (cmd === 'install' || cmd === 'pspsps') {
     const { install } = await import('./claude.js');
-    const runtime = args.includes('--node') ? 'node' : 'bun';
+    const runtime = args.includes('--node')
+      ? 'node'
+      : args.includes('--bun')
+        ? 'bun'
+        : undefined;
     const { path: p, command, backupPath } = install({ runtime });
     process.stdout.write(`installed: ${command}\n  -> ${p}\n`);
     if (backupPath) process.stdout.write(`  backup: ${backupPath}\n`);
@@ -76,7 +80,9 @@ function printHelp() {
       '                          (piped stdin → render one frame)',
       '  cccat config            interactive config (TUI)',
       '  cccat preview           5-second animated preview in your terminal',
-      '  cccat pspsps [--node]   add cccat to ~/.claude/settings.json (call the cat in)',
+      '  cccat pspsps [--node|--bun]',
+      '                          add cccat to ~/.claude/settings.json (call the cat in)',
+      '                          runtime is auto-detected (bunx if available, else npx)',
       '  cccat install           alias for pspsps',
       '  cccat shoo              remove cccat from ~/.claude/settings.json',
       '                          (restores previous statusLine if a backup exists)',

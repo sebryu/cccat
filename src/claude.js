@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), '.claude');
@@ -16,6 +17,13 @@ const COMMANDS = {
   bun: `bunx -y @sebryu/cccat@${PKG_VERSION}`,
   node: `npx -y @sebryu/cccat@${PKG_VERSION}`,
 };
+
+export function detectRuntime() {
+  if (process.versions.bun) return 'bun';
+  const probe = process.platform === 'win32' ? 'where' : 'which';
+  const result = spawnSync(probe, ['bunx'], { stdio: 'ignore' });
+  return result.status === 0 ? 'bun' : 'node';
+}
 
 export function readClaudeSettings() {
   try {
@@ -56,8 +64,9 @@ function backupForeignStatusLine() {
   return backupPath;
 }
 
-export function install({ runtime = 'bun', refreshInterval = 1 } = {}) {
-  const command = COMMANDS[runtime] || COMMANDS.bun;
+export function install({ runtime, refreshInterval = 1 } = {}) {
+  const resolved = runtime || detectRuntime();
+  const command = COMMANDS[resolved] || COMMANDS.bun;
   const backupPath = backupForeignStatusLine();
   const s = readClaudeSettings();
   s.statusLine = { type: 'command', command, refreshInterval };
