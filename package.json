@@ -1,0 +1,42 @@
+{
+  "name": "@sebryu/cccat",
+  "version": "0.0.1",
+  "description": "A cat status line for Claude Code — sleeps, purrs, walks across your prompt.",
+  "type": "module",
+  "bin": {
+    "cccat": "src/cli.js"
+  },
+  "main": "src/cli.js",
+  "files": [
+    "src/",
+    "animations/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.9.0",
+    "picocolors": "^1.1.1"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "preview": "node src/cli.js preview"
+  },
+  "keywords": [
+    "claude-code",
+    "claude",
+    "statusline",
+    "status-line",
+    "cat",
+    "ascii",
+    "animation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebryu/cccat.git"
+  },
+  "author": "Sebastian Szewczyk",
+  "license": "MIT"
+}
