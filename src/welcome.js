@@ -23,7 +23,7 @@ export function runDefaultInstall() {
     return;
   }
 
-  const { command, backupPath } = install({ runtime: 'bun' });
+  const { command, backupPath } = install();
   process.stdout.write(
     [
       '',
