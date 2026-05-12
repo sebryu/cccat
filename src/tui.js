@@ -96,8 +96,8 @@ async function runInstall() {
   const runtime = await p.select({
     message: 'Which runtime should Claude Code use to launch cccat?',
     options: [
-      { value: 'bun', label: 'bun (bunx -y cccat@latest)  — recommended, faster' },
-      { value: 'node', label: 'node (npx -y cccat@latest)' },
+      { value: 'bun', label: `bun (${claude.COMMANDS.bun})  — recommended, faster` },
+      { value: 'node', label: `node (${claude.COMMANDS.node})` },
     ],
     initialValue: 'bun',
   });
