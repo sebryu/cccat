@@ -13,7 +13,7 @@ const PKG_VERSION = JSON.parse(
   fs.readFileSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'package.json'), 'utf8')
 ).version;
 
-const COMMANDS = {
+export const COMMANDS = {
   bun: `bunx -y @sebryu/cccat@${PKG_VERSION}`,
   node: `npx -y @sebryu/cccat@${PKG_VERSION}`,
 };

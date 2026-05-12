@@ -70,7 +70,8 @@ function printVersion() {
   process.stdout.write(version + '\n');
 }
 
-function printHelp() {
+async function printHelp() {
+  const { SETTINGS_PATH, USER_ANIM_DIR } = await import('./settings.js');
   process.stdout.write(
     [
       'cccat — a cat status line for Claude Code',
@@ -91,8 +92,9 @@ function printHelp() {
       '  cccat --version         print version',
       '  cccat --help            this help',
       '',
-      'Settings: $XDG_CONFIG_HOME/cccat/settings.json (defaults baked in).',
-      'Custom animations: drop .txt files into ~/.config/cccat/animations/.',
+      `Settings: ${SETTINGS_PATH} (defaults baked in).`,
+      `Custom animations: drop .txt files into ${USER_ANIM_DIR}/.`,
+      'Override the config dir with $CCCAT_CONFIG_DIR or $XDG_CONFIG_HOME.',
       '',
     ].join('\n')
   );
